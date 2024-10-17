@@ -3,6 +3,7 @@
 // all TypeScript weakness flags.
 // : number
 const propertyContainer = document.querySelector('.properties')
+const footer = document.querySelector('.footer')
 
 import { showReviewTotal, populateUser } from './utils'
 let isOpen: boolean
@@ -60,11 +61,11 @@ const properties : {
         code: number;
         country: string;
     };
-    contact: string;
+    contact: [ number, string ];
     isAvailable: boolean;
 }[] = [
     {
-        image: 'images/1800.jpg',
+        image: 'images/colombia-property.jpg',
         title: 'Colombian Shack',
         price: 45,
         location: {
@@ -73,11 +74,11 @@ const properties : {
             code: 45632,
             country: 'Colombia'
         },
-        contact: 'marywinkle@gmail.com',
+        contact: [+112343823978921, 'marywinkle@gmail.com'],
         isAvailable: true  
     },
     {
-        image: 'images/3026.jpg',
+        image: 'images/poland-property.jpg',
         title: 'Polish Cottage',
         price: 34,
         location: {
@@ -86,11 +87,11 @@ const properties : {
             code: 343903,
             country: 'Poland'
         },
-        contact: 'garydavis@hotmail.com',
+        contact: [+1298239028490830, 'garydavis@hotmail.com'],
         isAvailable: false 
     },
     {
-        image: 'images/2147764410.jpg',
+        image: 'images/london-property.jpg',
         title: 'London Flat',
         price: 23,
         location: {
@@ -99,17 +100,18 @@ const properties : {
             code: 35433,
             country: 'United Kingdom',
         },
-        contact: 'andyluger@aol.com',
+        contact: [+34829374892553, 'andyluger@aol.com'],
         isAvailable: true
     }
 ]
+
 
 // Functions
 showReviewTotal(reviews.length, reviews[0].name, reviews[0].loyaltyUser)
 
 populateUser(you.isReturning, you.firstName)
 
-//Add the properties
+// Add the properties
 for (let i = 0; i < properties.length; i++) {
     const card = document.createElement('div')
     card.classList.add('card')
@@ -119,5 +121,10 @@ for (let i = 0; i < properties.length; i++) {
     card.appendChild(image)
     propertyContainer.appendChild(card)
 }
+
+// use your location, your current time, and the current temperature of your
+// location
+let currentLocation: [string, string, number] = ['London', '11:35', 17]
+footer.innerHTML = currentLocation[0] + ' ' + currentLocation[1] + ' ' + currentLocation[2] + '°'
 
 
