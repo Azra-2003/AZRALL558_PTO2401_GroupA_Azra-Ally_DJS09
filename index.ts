@@ -3,34 +3,16 @@
 // all TypeScript weakness flags.
 // : number
 import { showReviewTotal, populateUser, showDetails, getTopTwoReviews} from './utils'
-import { Price, Country } from './types'
 import { Permissions , LoyaltyUser } from './enums'
-import  Review  from './interfaces'
+import { Review, Property } from './interfaces'
+import MainProperty from './classes' 
 const propertyContainer = document.querySelector('.properties')
 const reviewContainer = document.querySelector('.reviews')
 const container = document.querySelector('.container')
-const button = document.querySelector('button')
+const button:any = document.querySelector('button')
 const footer = document.querySelector('.footer')
 
 let isLoggedIn: boolean
-
-enum Permissions {
-    ADMIN = 'ADMIN', 
-    READ_ONLY = 'READ_ONLY'
-}
-
-enum LoyaltyUser {
-    GOLD_USER = 'GOLD_USER',
-    SILVER_USER = 'SILVER_USER',
-    BRONZE_USER = 'BRONZE_USER'
-}
-
-interface Review {
-    name: string; 
-    stars: number; 
-    loyaltyUser: LoyaltyUser; 
-    date: string;   
-}
 
 // Reviews
 const reviews: Review[] = [
@@ -63,24 +45,10 @@ const you = {
     stayedAt: ['florida-home', 'oman-flat', 'tokyo-bungalow']
 }
 
-interface Property {
-    image: string;
-    title: string;
-    price: Price;
-    location: {
-        firstLine: string;
-        city: string;
-        code: number | string;
-        country: Country
-    }
-    contact: [ number, string];
-    isAvailable: boolean;
-}
-
 // Array of Properties
 const properties : Property[] = [
     {
-        image: 'images/1800.jpg',
+        image: '1800.jpg',
         title: 'Colombian Shack',
         price: 45,
         location: {
@@ -93,7 +61,7 @@ const properties : Property[] = [
         isAvailable: true  
     },
     {
-        image: 'images/3026.jpg',
+        image: '2147764410.jpg',
         title: 'Polish Cottage',
         price: 30,
         location: {
@@ -106,7 +74,7 @@ const properties : Property[] = [
         isAvailable: false 
     },
     {
-        image: 'images/2147764410.jpg',
+        image: '3026.jpg',
         title: 'London Flat',
         price: 25,
         location: {
@@ -119,7 +87,7 @@ const properties : Property[] = [
         isAvailable: true
     },
     {
-        image: 'images/25329.jpg',
+        image: '7263 (1).jpg',
         title: 'Malia Hotel',
         price: 35,
         location: {
@@ -144,10 +112,10 @@ for (let i = 0; i < properties.length; i++) {
     card.classList.add('card')
     card.innerHTML = properties[i].title
     const image = document.createElement('img')
-    image.setAttribute('src', properties[i].image)
+    image.setAttribute('src',"images/"+ properties[i].image)
     card.appendChild(image)
     showDetails(you.permissions, card, properties[i].price)
-    propertyContainer.appendChild(card)
+    propertyContainer?.appendChild(card)
 }
 
 let count = 0
@@ -159,31 +127,21 @@ function addReviews(array : Review[]) : void {
             const card = document.createElement('div')
             card.classList.add('review-card')
             card.innerHTML = topTwo[i].stars + ' stars from ' + topTwo[i].name
-            reviewContainer.appendChild(card)
+            reviewContainer?.appendChild(card)
         }
-        container.removeChild(button) 
+        container?.removeChild(button) 
     }
 }
 
 button.addEventListener('click', () => addReviews(reviews))
 
 let currentLocation : [string, string, number] = ['London', '11.03', 17]
+if(footer)
 footer.innerHTML = currentLocation[0] + ' ' + currentLocation[1] + ' ' + currentLocation[2] + '°'
 
-// Classes
-class MainProperty {
-    src: string
-    title: string
-    reviews: Review[]
-    constructor(src: string, title: string, reviews: Review[]) {
-        this.src = src
-        this.title = title
-        this.reviews = reviews
-    }
-}
 
 let yourMainProperty = new MainProperty(
-    'images/7263 (1).jpg', 
+    'images/25329.jpg', 
     'Italian House',
     [{
         name: 'Olive',
@@ -195,4 +153,5 @@ let yourMainProperty = new MainProperty(
 const mainImageContainer = document.querySelector('.main-image')
 const image = document.createElement('img')
 image.setAttribute('src', yourMainProperty.src)
-mainImageContainer.appendChild(image)
+image.setAttribute('height', "128" )
+mainImageContainer?.appendChild(image)
